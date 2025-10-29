@@ -1,30 +1,20 @@
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+#!/bin/bash
 
-int main() {
-    int a, b;
-    char *chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+if [ $# -ne 2 ]; then
+  echo "Введите: кол-во паролейб длина паролей"
+  exit 1
+fi
 
-    printf("Сколько паролей? ");
-    scanf("%d", &a);
+a=$1
+b=$2
 
-    printf("Длина пароля? ");
-    scanf("%d", &b);
-
-    if (a <= 0 || b <= 0) {
-        printf("Ошибка: число должно быть положительным\n");
-        return 1;
-    }
-
-    srand(time(0));
-
-    for (int i = 0; i < a; i++) {
-        for (int j = 0; j < b; j++) {
-            printf("%c", chars[rand() % 62]);
-        }
-        printf("\n");
-    }
-    return 0;
+generate_password() {
+  tr -dc 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789' </dev/urandom | head -c "$b"
+  echo
 }
+
+for ((i=1; i<=a; i++)); do
+  echo "Пароль $i: $(generate_password)"
+done
+
