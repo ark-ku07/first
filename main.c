@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 
-void puzir(int* arr, int n) {
+void puzir(int* arr, int size) {
     int flag;
-    for (int x = 0; x < n-1; x++) {
+    for (int x = 0; x < size-1; x++) {
         flag = 0;
-        for (int y = 0; y < n-x-1; y++) {
+        for (int y = 0; y < size-x-1; y++) {
             if (arr[y] > arr[y+1]) {
                 int t = arr[y];
                 arr[y] = arr[y+1];
@@ -19,38 +19,38 @@ void puzir(int* arr, int n) {
 }
 
 void vstavka(int *arr, int size) {
-    int key, j;
+    int k, j;
     for (int i = 1; i < size; i++) {
-        key = arr[i];
+        k = arr[i];
         j = i - 1;
-        while (j >= 0 && key < arr[j]) {
+        while (j >= 0 && k < arr[j]) {
             arr[j+1] = arr[j];
             j = j - 1;
         }
-        arr[j+1] = key;
+        arr[j+1] = k;
     }
     
 }
 
-void slianie(int* arr, int n) {
-    if (n < 2) return;
-    int s = n/2;
+void slianie(int* arr, int size) {
+    if (size < 2) return;
+    int s = size/2;
     slianie(arr, s);
-    slianie(arr + s, n - s);
+    slianie(arr + s, size - s);
     
-    int* v = malloc(n * sizeof(int));
+    int* v = malloc(size * sizeof(int));
     int l = 0, r = 0, g = 0;
     
-    while (l < s && r < n - s) {
+    while (l < s && r < size - s) {
         if (arr[l] < arr[s + r]) 
             v[g++] = arr[l++];
         else 
             v[g++] = arr[s + r++];
     }
     while (l < s) v[g++] = arr[l++];
-    while (r < n - s) v[g++] = arr[s + r++];
+    while (r < size - s) v[g++] = arr[s + r++];
     
-    for (l = 0; l < n; l++) arr[l] = v[l];
+    for (l = 0; l < size; l++) arr[l] = v[l];
     free(v);
 }
 
