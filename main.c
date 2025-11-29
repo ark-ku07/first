@@ -41,14 +41,12 @@ void slianie(int* arr, int size) {
     int* v = malloc(size * sizeof(int));
     int l = 0, r = 0, g = 0;
     
-    while (l < s && r < size - s) {
-        if (arr[l] < arr[s + r]) 
-            v[g++] = arr[l++];
-        else 
-            v[g++] = arr[s + r++];
-    }
-    while (l < s) v[g++] = arr[l++];
-    while (r < size - s) v[g++] = arr[s + r++];
+    while (l < s) {
+    v[g++] = arr[l++];
+}
+while (r < size - s) {
+    v[g++] = arr[s + r++];
+}
     
     for (l = 0; l < size; l++) arr[l] = v[l];
     free(v);
